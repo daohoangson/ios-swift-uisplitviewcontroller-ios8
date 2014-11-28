@@ -52,7 +52,14 @@ class MasterViewController: UITableViewController {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = objects[indexPath.row] as NSDate
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+                var controller: DetailViewController
+                
+                if let nav = segue.destinationViewController as? UINavigationController {
+                    controller = nav.topViewController as DetailViewController
+                } else {
+                    controller = segue.destinationViewController as DetailViewController
+                }
+                
                 controller.detailItem = object
             }
         }
