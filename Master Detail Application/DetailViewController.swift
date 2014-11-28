@@ -21,6 +21,14 @@ class DetailViewController: UIViewController {
     }
 
     func configureView() {
+        // Configure the button to return to Master
+        if splitViewController != nil {
+            if splitViewController!.respondsToSelector(Selector("displayModeButtonItem")) {
+                navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem()
+                navigationItem.leftItemsSupplementBackButton = true
+            }
+        }
+        
         // Update the user interface for the detail item.
         if let detail: AnyObject = self.detailItem {
             if let label = self.detailDescriptionLabel {

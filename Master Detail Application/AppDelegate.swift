@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
-        navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
         return true
     }
@@ -57,6 +55,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
         }
         return false
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, willHideViewController aViewController: UIViewController, withBarButtonItem barButtonItem: UIBarButtonItem, forPopoverController pc: UIPopoverController) {
+        if !splitViewController.respondsToSelector(Selector("displayModeButtonItem")) {
+            let nav = splitViewController.viewControllers.last as UINavigationController
+            nav.topViewController.navigationItem.setLeftBarButtonItem(barButtonItem, animated: true)
+        }
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, willShowViewController aViewController: UIViewController, invalidatingBarButtonItem barButtonItem: UIBarButtonItem) {
+        if !splitViewController.respondsToSelector(Selector("displayModeButtonItem")) {
+            let nav = splitViewController.viewControllers.last as UINavigationController
+            nav.topViewController.navigationItem.setLeftBarButtonItem(nil, animated: true)
+        }
     }
 
 }
