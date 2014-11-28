@@ -2,6 +2,6 @@
 
 This demo project was created by XCode 6.1 with "Master-Detail Application" template. The built application will not work with iOS 7 because the template uses a new method which is only available since SDK 8 (`UISplitViewController::displayModeButtonItem`). With a quick check for the missing selector, `UISplitViewController` _magically_ works pretty well. Many blog posts addressed this issue but after a few hours of testing myself, their solution is still incomplete. Getting it to work in iPhone-iOS7 is easy because the controller transforms itself to a humble `UINavigationController`. The hardest thing IMHO is to get the popup bar item button to show up in portrait iPad. Turned out, it was pretty simple (and obvious once you know it): you just need to implement the deprecated `splitViewController:willHideViewController:withBarButtonItem:forPopoverController` and `splitViewController:willShowViewController:invalidatingBarButtonItem` in your `UISplitViewControllerDelegate`.
 
-Download the project to see it in action.
+Download the project to see it in action. For screenshots, have a look at [my blog](http://geek.daohoangson.com/2014/11/the-new-uisplitviewcontroller-swift-and.html).
 
 PS: In the template, it calls `UISplitViewController::displayModeButtonItem` twice. Once in `application:didFinishLaunchingWithOptions` and once in `MasterViewController::prepareForSegue` which is unnecessary so in the demo project, I moved the code to `DetailViewController::configureView`.
